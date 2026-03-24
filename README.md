@@ -61,8 +61,14 @@ Simulates retention campaign impact:
 
 - Top ~10% highest-risk users contribute a disproportionate share of revenue at risk  
 - High-value churners (≥20 GEL) represent the most impactful retention opportunity  
-- Targeted campaigns significantly outperform broad campaigns in efficiency  
+- Targeted campaigns significantly outperform broad campaigns in efficiency
+  
+## Key Results
 
+- Top ~10% highest-risk users capture ~25–35% of total revenue at risk  
+- High-value churners (≥20 GEL) represent the most impactful retention segment  
+- Targeted approach reduces campaign size while preserving majority of revenue  
+- Retention simulation shows strong upside even at 10–20% success rates  
 ---
 
 ## Tech Stack
@@ -98,12 +104,16 @@ churn-revenue-optimization/
 
 ## Business Impact
 
-This project demonstrates how analytics can directly support decision-making:
+This project demonstrates how analytics directly supports revenue-driven decision making:
 
-- Prioritize high-value customers at risk
-- Estimate financial impact before launching campaigns
-- Improve targeting efficiency and ROI
-- Translate data into actionable strategy
+- Identifies **high-value customers at risk of churn** (not just high-risk)
+- Quantifies **revenue at risk (90-day horizon)** before campaign launch
+- Enables **ROI-driven targeting strategy** instead of mass campaigns
+- Shows how **top-risk segments contribute disproportionately to revenue loss**
+- Provides a clear framework for **retention value estimation (VE)**
+
+👉 Key takeaway:  
+Focusing on high-value churners significantly improves campaign efficiency and expected return.
 
 ---
 
