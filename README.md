@@ -77,7 +77,7 @@ Simulates retention campaign impact:
 - **Python (Pandas, NumPy)** — analysis & simulation
 - **Jupyter Notebook** — end-to-end workflow
 - **Matplotlib** — visualization
-
+- **Oracle SQL pipeline** for feature engineering and retention targeting logic
 ---
 
 ## Project Structure
