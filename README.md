@@ -138,7 +138,7 @@ Data Analyst | Telecom Analytics | Churn & Revenue Optimization
 - Feature engineering for ML models
 
 ---
-
+![Revenue Lift Curve](outputs/charts/lift_curve.png)
 ## Contact
 
 - GitHub: https://github.com/David-johanson
