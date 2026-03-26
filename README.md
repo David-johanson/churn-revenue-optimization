@@ -48,9 +48,49 @@ This project covers two complementary telecom analytics domains:
 
 This diagram illustrates how upsell and churn flows are integrated into a unified system:
 
-<p align="center">
-  <img src="outputs/charts/analytics_flow.png" width="850"/>
-</p>
+                    ┌──────────────────────────────┐
+                    │        DATA LAYER            │
+                    │------------------------------│
+                    │ Usage | Revenue | Subs Info  │
+                    └──────────────┬───────────────┘
+                                   │
+                                   ▼
+                    ┌──────────────────────────────┐
+                    │     FEATURE ENGINEERING      │
+                    │------------------------------│
+                    │ Tenure | Usage | ARPU | Recency │
+                    └──────────────┬───────────────┘
+                                   │
+        ┌──────────────────────────┴──────────────────────────┐
+        ▼                                                     ▼
+┌──────────────────────────┐                  ┌──────────────────────────┐
+│   CHURN ANALYTICS        │                  │   MIX USERS UPSELL       │
+│--------------------------│                  │--------------------------│
+│ Churn Probability        │                  │ Mix Usage Affinity       │
+│ Risk Segmentation        │                  │ Upsell Targeting Model   │
+└──────────────┬───────────┘                  └──────────────┬───────────┘
+               │                                              │
+               ▼                                              ▼
+┌──────────────────────────┐                  ┌──────────────────────────┐
+│  REVENUE RISK ESTIMATION │                  │  ELIGIBLE TARGET BASE    │
+│--------------------------│                  │--------------------------│
+│ 90D Revenue Loss         │                  │ Offer Assignment         │
+│ High-Value Customers     │                  │ Campaign Candidates      │
+└──────────────┬───────────┘                  └──────────────┬───────────┘
+               └──────────────┬──────────────────────────────┘
+                              ▼
+                    ┌──────────────────────────────┐
+                    │       DECISION LAYER         │
+                    │------------------------------│
+                    │ ROI-driven Targeting         │
+                    │ Upsell vs Retention Balance  │
+                    └──────────────┬───────────────┘
+                                   ▼
+                    ┌──────────────────────────────┐
+                    │       BUSINESS IMPACT        │
+                    │------------------------------│
+                    │ ↑ ARPU | ↓ Revenue Loss      │
+                    └──────────────────────────────┘
 
 *Unified decision system combining churn prevention and upsell targeting*
 
