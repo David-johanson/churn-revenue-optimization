@@ -42,6 +42,10 @@ This project covers two core telecom analytics domains:
 ---  
 
 ## 🔄 End-to-End Analytics Flow
+
+This diagram illustrates how churn prevention and upsell targeting are integrated into a unified decision system:
+
+![Analytics Flow](outputs/charts/analytics_flow.png)
            
             
 ## 🎯 Solution Overview
