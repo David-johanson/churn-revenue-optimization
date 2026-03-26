@@ -1,10 +1,10 @@
-# Churn Revenue Optimization
+# Telecom Revenue Optimization
 
-This project simulates a real telecom retention workflow — from churn prediction to revenue-driven targeting and campaign value estimation.
+This project simulates a real telecom decision system — combining **revenue growth (upsell)** and **revenue protection (churn reduction)** into a unified analytics workflow.
 
 It focuses not only on predicting churn, but on answering the key business question:
 
-> Which customers should we target to maximize retention ROI?
+> Which customers should we target to maximize revenue impact and campaign ROI?
 
 ---
 
@@ -14,47 +14,56 @@ Traditional churn models identify **who is likely to churn**, but fail to answer
 
 - Which customers actually matter financially?
 - How much revenue is at risk?
-- What is the expected return of a retention campaign?
+- How should targeting be prioritized?
+- How can we increase revenue, not just prevent loss?
 
-This project bridges that gap by combining **churn risk + customer value + targeting strategy**.
+This project bridges that gap by combining **churn risk + customer value + upsell opportunities**.
 
 ---
 
 ## 🏗 System Perspective
 
-This project can be viewed as a decision system composed of:
+This project represents a **decision system**, composed of:
 
-- **Data Layer** — raw usage, revenue, and subscriber data  
+- **Data Layer** — raw usage, revenue, subscriber data  
 - **Feature Layer** — behavioral and financial signals  
-- **Model Layer** — churn probability estimation  
-- **Decision Layer** — revenue-driven targeting logic  
-- **Execution Layer** — campaign deployment (simulated)  
+- **Model Layer** — churn & upsell targeting models  
+- **Decision Layer** — ROI-driven targeting logic  
+- **Execution Layer** — campaign targeting (simulated)  
 
-The goal is not only prediction, but **optimal decision-making under business constraints**.
+👉 The goal is **optimal decision-making**, not just prediction.
 
 ---
+
 ## 🎯 Analytical Scope
 
-This project covers two core telecom analytics domains:
+This project covers two complementary telecom analytics domains:
 
-- **Revenue Growth (Upsell)** — via mix package scale-up targeting (UC05)
-- **Revenue Protection (Churn)** — via churn prediction and retention optimization
----  
+- **Revenue Growth (Upsell)** — via Mix Users Upsell (behavioral targeting)  
+- **Revenue Protection (Churn)** — via churn prediction and retention optimization  
+
+---
 
 ## 🔄 End-to-End Analytics Flow
 
-This diagram illustrates how churn prevention and upsell targeting are integrated into a unified decision system:
+This diagram illustrates how upsell and churn flows are integrated into a unified system:
 
-![Analytics Flow](outputs/charts/analytics_flow.png)
-           
-            
-## 🎯 Solution Overview
+<p align="center">
+  <img src="outputs/charts/analytics_flow.png" width="850"/>
+</p>
+
+*Unified decision system combining churn prevention and upsell targeting*
+
+---
+
+## ⚙️ Solution Overview
 
 | Layer | Description |
 |------|------------|
-| **Feature Engineering** | Behavioral + revenue features (usage, tenure, recency) |
-| **Churn Analysis** | Risk segmentation using churn probabilities |
-| **Value Optimization** | Revenue-at-risk calculation + targeting strategy |
+| **Feature Engineering** | Behavioral + revenue features |
+| **Churn Analytics** | Risk segmentation |
+| **Upsell Targeting** | Mix behavior-based targeting |
+| **Decision System** | ROI-based prioritization |
 
 ---
 
@@ -66,43 +75,42 @@ This diagram illustrates how churn prevention and upsell targeting are integrate
 - Revenue features (30/90-day rolling charges)
 - Activity signals (recency & engagement)
 
-### 2. Churn Analysis
-- Probability-based segmentation  
-- Actual vs predicted churn validation  
-- Portfolio-level churn KPIs  
+---
 
-### 3. Revenue at Risk
-- Calculates total revenue from actual churners (90-day window)  
-- Identifies financially impactful churn segments  
+### 2. Churn Analytics (Revenue Protection)
+- Churn probability modeling
+- Risk segmentation
+- Actual vs predicted churn validation
 
-### 4. Targeting Strategy
-Targets only **high-impact customers**:
+---
 
-- `churn_prob ≥ 0.60`  
-- `total_charge_90d ≥ 20 GEL`  
+### 3. Revenue Risk Estimation
+- Calculates total revenue from churners (90-day window)
+- Identifies high-value churn segments
 
-👉 Avoids inefficient mass campaigns  
+---
 
-### 5. Value Estimation (VE)
+### 4. Mix Users Upsell (Revenue Growth)
+- Detects mix usage behavior (data + voice)
+- Identifies upsell-ready users
+- Applies model-driven targeting
+- Assigns personalized offers
 
-| Retention Rate | Scenario |
-|---------------|----------|
-| 10% | Conservative |
-| 20% | Realistic |
-| 30% | Optimistic |
+---
 
-### 6. Revenue Lift Curve
-- Measures how efficiently revenue is captured  
-- Demonstrates prioritization of high-risk users  
+### 5. Decision Layer
+- Combines churn + upsell insights
+- Prioritizes users based on revenue impact
+- Optimizes targeting strategy
 
 ---
 
 ## 📊 Key Results
 
 - Top ~10% highest-risk users capture **~25–35% of total revenue at risk**  
-- High-value churners (≥20 GEL) drive the majority of financial impact  
-- Targeted campaigns preserve **~70–80% of revenue while reducing size**  
-- Even **10–20% retention success** yields strong revenue recovery  
+- High-value churners drive the majority of financial impact  
+- Targeted campaigns preserve **~70–80% of revenue while reducing campaign size**  
+- Upsell targeting increases ARPU through mix package adoption  
 
 ---
 
@@ -117,52 +125,41 @@ Targets only **high-impact customers**:
 
 ## 🧩 SQL Pipelines (Production Layer)
 
-This project includes production-style Oracle SQL pipelines used in telecom environments.
+### 🔥 Mix Users Upsell Pipeline
+A production-grade Oracle SQL pipeline for behavioral targeting:
 
-### 🔥 UC05 Scale-up Pipeline (Upsell / Behavioral Targeting)
-
-A production-grade pipeline designed for **mix package scale-up (upsell)** use case.
-
-#### Objective:
-Identify subscribers with high likelihood to **upgrade to higher-value mix packages** based on behavioral patterns.
-
-#### Key Logic:
-- Filters eligible subscribers using 90-day usage behavior  
-- Applies revenue constraints (mix charge range)  
-- Identifies users with strong **mix affinity (data + voice usage)**  
-- Integrates ML model predictions (mix propensity)  
-- Assigns personalized offer bundles (`Offer1–Offer4`)  
-- Maintains a **30-day active targeting window**
-
-#### Business Goal:
-Increase ARPU by converting medium-value users into higher-value **mix package subscribers**
+- Filters eligible subscribers (90-day behavior)
+- Applies revenue constraints
+- Detects mix usage affinity
+- Integrates model predictions
+- Assigns personalized offers
+- Maintains 30-day lifecycle
 
 ---
 
-### Other SQL Modules (Churn-Oriented)
-
-- `feature_engineering.sql` — builds churn model features  
-- `revenue_at_risk.sql` — calculates churn-related revenue exposure  
+### Churn Analytics Pipelines
+- `feature_engineering.sql` — builds model features  
+- `revenue_at_risk.sql` — calculates revenue exposure  
 
 📂 Full SQL documentation: [sql/README.md](sql/README.md)
 
 ---
 
 ## 📂 Project Structure
-churn-revenue-optimization/
+telecom-revenue-optimization/
 │
 ├── sql/
-│ ├── uc05_scaleup_pipeline.sql
+│ ├── mix_users_upsell_pipeline.sql
 │ ├── feature_engineering.sql
 │ └── revenue_at_risk.sql
 │
 ├── notebooks/
 │ └── churn_analysis.ipynb
 │
-├── data/
 ├── outputs/
 │ └── charts/
-│ └── lift_curve.png
+│ ├── lift_curve.png
+│ └── analytics_flow.png
 │
 └── README.md
 
@@ -192,6 +189,7 @@ churn-revenue-optimization/
 - Designed for **daily batch execution**  
 - Uses incremental updates (MERGE instead of full rebuild)  
 - Pre-aggregated tables reduce compute cost  
+- Scalable to millions of subscribers  
 
 ---
 
@@ -199,8 +197,8 @@ churn-revenue-optimization/
 
 - Aligning churn probability with revenue impact  
 - Avoiding bias toward low-value churners  
+- Balancing upsell vs retention strategies  
 - Handling missing model predictions  
-- Balancing campaign scale vs ROI  
 
 ---
 
@@ -209,10 +207,11 @@ churn-revenue-optimization/
 - Identifies **high-value churners**  
 - Quantifies **revenue at risk**  
 - Enables **ROI-driven targeting**  
-- Reduces campaign cost while preserving value  
+- Increases ARPU through upsell  
+- Improves campaign efficiency  
 
 👉 Key takeaway:  
-Focusing on high-value churners significantly improves campaign ROI.
+Combining **upsell + churn analytics** maximizes total revenue impact.
 
 ---
 
@@ -220,7 +219,7 @@ Focusing on high-value churners significantly improves campaign ROI.
 
 - Add uplift modeling  
 - Include campaign cost → ROI  
-- Build Power BI dashboard  
+- Build BI dashboard  
 - Deploy end-to-end pipeline  
 
 ---
@@ -232,13 +231,7 @@ Data Analyst — Telecom & Revenue Analytics
 
 - SQL (Oracle, PL/SQL)  
 - Python (analytics workflows)  
-- Churn & retention analytics  
-
----
-
-## 📈 Visualization
-
-![Revenue Lift Curve](outputs/charts/lift_curve.png)
+- Churn & upsell analytics  
 
 ---
 
