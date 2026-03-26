@@ -39,8 +39,57 @@ This project covers two core telecom analytics domains:
 
 - **Revenue Growth (Upsell)** — via mix package scale-up targeting (UC05)
 - **Revenue Protection (Churn)** — via churn prediction and retention optimization
-
 ---  
+
+## 🔄 End-to-End Analytics Flow
+            ┌──────────────────────────────┐
+            │        Raw Data Layer        │
+            │------------------------------│
+            │ Usage | Revenue | Subs Info  │
+            └──────────────┬───────────────┘
+                           │
+                           ▼
+            ┌──────────────────────────────┐
+            │     Feature Engineering      │
+            │------------------------------│
+            │ Tenure | Usage | ARPU | Recency │
+            └──────────────┬───────────────┘
+                           │
+            ┌──────────────┴──────────────┐
+            ▼                             ▼
+  ┌──────────────────────┐      ┌────────────────────────┐
+  │   CHURN ANALYTICS    │      │   UC05 SCALE-UP (UPSELL)│
+  │----------------------│      │-------------------------│
+  │ Churn Probability    │      │ Mix Behavior Detection  │
+  │ Risk Segmentation    │      │ Usage Affinity (Data+Voice) │
+  │ Actual vs Predicted  │      │ Model Targeting (Mix)   │
+  └──────────┬───────────┘      └──────────┬──────────────┘
+             │                             │
+             ▼                             ▼
+  ┌──────────────────────┐      ┌────────────────────────┐
+  │  REVENUE AT RISK     │      │  TARGET BASE GENERATION │
+  │----------------------│      │-------------------------│
+  │ 90D Revenue Loss     │      │ Eligible Subscribers    │
+  │ High-Value Churners  │      │ Offer Assignment        │
+  └──────────┬───────────┘      └──────────┬──────────────┘
+             │                             │
+             └──────────────┬──────────────┘
+                            ▼
+            ┌──────────────────────────────┐
+            │     DECISION LAYER           │
+            │------------------------------│
+            │ Who to target & how          │
+            │ ROI-driven prioritization    │
+            └──────────────┬───────────────┘
+                           ▼
+            ┌──────────────────────────────┐
+            │   BUSINESS IMPACT            │
+            │------------------------------│
+            │ ↑ ARPU (Upsell)              │
+            │ ↓ Revenue Loss (Churn)       │
+            └──────────────────────────────┘
+
+            
 ## 🎯 Solution Overview
 
 | Layer | Description |
