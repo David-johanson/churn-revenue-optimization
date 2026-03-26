@@ -20,6 +20,20 @@ This project bridges that gap by combining **churn risk + customer value + targe
 
 ---
 
+## 🏗 System Perspective
+
+This project can be viewed as a decision system composed of:
+
+- **Data Layer** — raw usage, revenue, and subscriber data  
+- **Feature Layer** — behavioral and financial signals  
+- **Model Layer** — churn probability estimation  
+- **Decision Layer** — revenue-driven targeting logic  
+- **Execution Layer** — campaign deployment (simulated)  
+
+The goal is not only prediction, but **optimal decision-making under business constraints**.
+
+---
+
 ## 🎯 Solution Overview
 
 The solution integrates three layers:
@@ -41,21 +55,21 @@ The solution integrates three layers:
 - Activity signals (recency & engagement)
 
 ### 2. Churn Analysis
-- Probability-based segmentation
-- Actual vs predicted churn validation
-- Portfolio-level churn KPIs
+- Probability-based segmentation  
+- Actual vs predicted churn validation  
+- Portfolio-level churn KPIs  
 
 ### 3. Revenue at Risk
-- Calculates total revenue from actual churners (90-day window)
-- Identifies financially impactful churn segments
+- Calculates total revenue from actual churners (90-day window)  
+- Identifies financially impactful churn segments  
 
 ### 4. Targeting Strategy
 Targets only **high-impact customers**:
 
-- `churn_prob ≥ 0.60`
-- `total_charge_90d ≥ 20 GEL`
+- `churn_prob ≥ 0.60`  
+- `total_charge_90d ≥ 20 GEL`  
 
-👉 Avoids inefficient mass campaigns
+👉 Avoids inefficient mass campaigns  
 
 ### 5. Value Estimation (VE)
 Simulates retention campaign outcomes:
@@ -67,17 +81,26 @@ Simulates retention campaign outcomes:
 | 30% | Optimistic scenario |
 
 ### 6. Revenue Lift Curve
-- Measures how efficiently revenue is captured
-- Demonstrates prioritization of high-risk users
+- Measures how efficiently revenue is captured  
+- Demonstrates prioritization of high-risk users  
 
 ---
 
 ## 📊 Key Results
 
-- Top ~10% highest-risk users capture **~25–35% of total revenue at risk**
-- High-value churners (≥20 GEL) drive the majority of financial impact
-- Targeted campaigns significantly outperform broad campaigns
-- Even **10–20% retention success** yields strong revenue recovery
+- Top ~10% highest-risk users capture **~25–35% of total revenue at risk**  
+- High-value churners (≥20 GEL) drive the majority of financial impact  
+- Targeted campaigns reduce size while preserving **~70–80% of revenue**  
+- Even **10–20% retention success** yields strong revenue recovery  
+
+---
+
+## ⚖️ Trade-offs & Assumptions
+
+- Targeting fewer users increases ROI but reduces total coverage  
+- Revenue thresholds prioritize value over volume  
+- Retention rates are simulated (no uplift modeling yet)  
+- Model performance assumed stable across segments  
 
 ---
 
@@ -88,23 +111,22 @@ This project includes production-style Oracle SQL pipelines used in telecom envi
 ### 🔥 UC05 Scale-up Pipeline
 A production-grade pipeline for **dynamic subscriber targeting**:
 
-- Identifies eligible subscribers based on behavior
-- Applies revenue-based filtering (30-day rolling charges)
-- Integrates ML model predictions
-- Assigns personalized offers
-- Maintains a 30-day retention lifecycle
+- Identifies eligible subscribers based on behavior  
+- Applies revenue-based filtering (30-day rolling charges)  
+- Integrates ML model predictions  
+- Assigns personalized offers  
+- Maintains a 30-day retention lifecycle  
 
 ### Other SQL Modules
-- `feature_engineering.sql` — builds model-ready features
-- `revenue_at_risk.sql` — calculates churn-related revenue exposure
+- `feature_engineering.sql` — builds model-ready features  
+- `revenue_at_risk.sql` — calculates churn-related revenue exposure  
 
 📂 Full SQL documentation: [sql/README.md](sql/README.md)
 
 ---
 
 ## 📂 Project Structure
-
-churn-revenue-optimization/
+hurn-revenue-optimization/
 │
 ├── sql/
 │ ├── uc05_scaleup_pipeline.sql
@@ -125,21 +147,39 @@ churn-revenue-optimization/
 
 ## ⚙️ Tech Stack
 
-- **Oracle SQL (PL/SQL)** — production pipelines, aggregations
-- **Python (Pandas, NumPy)** — analysis & simulation
-- **Jupyter Notebook** — workflow orchestration
-- **Matplotlib** — visualization
-- Large-scale data processing (millions of subscribers)
+- **Oracle SQL (PL/SQL)** — production pipelines, aggregations  
+- **Python (Pandas, NumPy)** — analysis & simulation  
+- **Jupyter Notebook** — workflow orchestration  
+- **Matplotlib** — visualization  
+- Large-scale data processing (millions of subscribers)  
 
 ---
 
 ## 🔬 Technical Highlights
 
-- Rolling window aggregations (30/60/90 days)
-- GTT-based pipeline optimization
-- MERGE + DELETE incremental refresh
-- Performance tuning (MATERIALIZE, USE_HASH)
-- Behavioral + revenue segmentation logic
+- Rolling window aggregations (30/60/90 days)  
+- GTT-based pipeline optimization  
+- MERGE + DELETE incremental refresh  
+- Performance tuning (MATERIALIZE, USE_HASH)  
+- Behavioral + revenue segmentation logic  
+
+---
+
+## 🚀 Production Considerations
+
+- Designed for **daily batch execution**  
+- Uses incremental updates (MERGE instead of full rebuild)  
+- Pre-aggregated tables reduce compute cost  
+- Can be extended to real-time scoring pipelines  
+
+---
+
+## 🧩 Challenges
+
+- Aligning churn probability with revenue impact  
+- Avoiding bias toward low-value churners  
+- Handling missing model predictions in pipelines  
+- Balancing campaign scale vs ROI  
 
 ---
 
@@ -147,11 +187,11 @@ churn-revenue-optimization/
 
 This project demonstrates how analytics directly supports revenue-driven decision making:
 
-- Identifies **high-value customers at risk of churn**
-- Quantifies **revenue at risk before campaign launch**
-- Enables **ROI-driven targeting strategy**
-- Reduces campaign size while preserving most revenue
-- Improves retention efficiency and expected return
+- Identifies **high-value customers at risk of churn**  
+- Quantifies **revenue at risk before campaign launch**  
+- Enables **ROI-driven targeting strategy**  
+- Reduces campaign size while preserving most revenue  
+- Improves retention efficiency and expected return  
 
 👉 Key takeaway:  
 Focusing on high-value churners significantly improves campaign ROI.
@@ -160,11 +200,11 @@ Focusing on high-value churners significantly improves campaign ROI.
 
 ## 🚀 Next Steps
 
-- Train and evaluate churn prediction models
-- Add campaign cost → full ROI calculation
-- Build Power BI / Tableau dashboard
-- Implement uplift modeling (incremental impact)
-- Deploy end-to-end pipeline (SQL + Python)
+- Train and evaluate churn prediction models  
+- Add campaign cost → full ROI calculation  
+- Build Power BI / Tableau dashboard  
+- Implement uplift modeling (incremental impact)  
+- Deploy end-to-end pipeline (SQL + Python)  
 
 ---
 
@@ -173,10 +213,10 @@ Focusing on high-value churners significantly improves campaign ROI.
 **David Jokhadze**  
 Data Analyst — Telecom & Revenue Analytics  
 
-- SQL (Oracle, PL/SQL)
-- Python (data analysis & modeling support)
-- Churn modeling & retention analytics
-- Campaign targeting & ARPU optimization
+- SQL (Oracle, PL/SQL)  
+- Python (data analysis & modeling support)  
+- Churn modeling & retention analytics  
+- Campaign targeting & ARPU optimization  
 
 ---
 
@@ -188,5 +228,5 @@ Data Analyst — Telecom & Revenue Analytics
 
 ## 📬 Contact
 
-- GitHub: https://github.com/David-johanson
-- Telegram: https://t.me/JOHANSON_D
+- GitHub: https://github.com/David-johanson  
+- Telegram: https://t.me/JOHANSON_D  
